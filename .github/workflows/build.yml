@@ -26,10 +26,11 @@ jobs:
           run: apt-get install -y equivs curl git devscripts lintian build-essential automake autotools-dev cmake g++
         - name: Build Package
           run: dpkg-buildpackage -b -uc -us -j$(nproc) && mv ../*.deb ./
-        - uses: actions/upload-artifact@v4
+
+        - uses: actions/upload-artifact@v3
           with:
             name: amd64 Package
             path: |
-              ../*.deb
-              !../*dbg*.deb
+              *.deb
+              !*dbg*.deb
             compression-level: 9 # maximum compression
