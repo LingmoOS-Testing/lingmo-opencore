@@ -19,17 +19,17 @@ jobs:
         - uses: actions/checkout@v3
         
         - name: Update repository
-        run: apt-get update -y
-      - name: Upgrade packages
-        run: apt-get upgrade -y
-      - name: Install the basic dev packages
-        run: apt-get install -y equivs curl git devscripts lintian build-essential automake autotools-dev cmake g++
-      - name: Build Package
-        run: dpkg-buildpackage -b -uc -us -j$(nproc)
-      - uses: actions/upload-artifact@v4
-        with:
-          name: amd64 Package
-          path: |
-            ../*.deb
-            !../*dbg*.deb
-          compression-level: 9 # maximum compression
+          run: apt-get update -y
+        - name: Upgrade packages
+          run: apt-get upgrade -y
+        - name: Install the basic dev packages
+          run: apt-get install -y equivs curl git devscripts lintian build-essential automake autotools-dev cmake g++
+        - name: Build Package
+          run: dpkg-buildpackage -b -uc -us -j$(nproc)
+        - uses: actions/upload-artifact@v4
+          with:
+            name: amd64 Package
+            path: |
+              ../*.deb
+              !../*dbg*.deb
+            compression-level: 9 # maximum compression
